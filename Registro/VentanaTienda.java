@@ -10,7 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class VentanaTienda extends JFrame {
-	private int monedas /*= BD.selectMonedas(user)*/;
+	private int monedas;
 	private JLabel labelDinero;
 	private JButton btnCompraArco;
 	private JButton btnCompraBaston;
@@ -51,6 +51,7 @@ public class VentanaTienda extends JFrame {
 	public VentanaTienda(Usuario u, Inventario i){
 		this.user = u;
 		this.invent = i;
+		this.monedas = BD.selectMonedas(user);
 		Initialize();
 	}
 	
@@ -74,24 +75,28 @@ public class VentanaTienda extends JFrame {
 		tienda.setResizable(false);
 		tienda.getContentPane().setLayout(null);
 		tienda.setVisible(true);
-		labelDinero = new JLabel("Monedas: " + getMonedas());
-		labelDinero.setForeground(Color.ORANGE);
+		labelDinero = new JLabel("Monedas: " + BD.selectMonedas(user));
+		labelDinero.setForeground(new Color(255, 102, 0));
 		labelDinero.setFont(new Font("Rockwell Extra Bold", Font.PLAIN, 20));
-		labelDinero.setBounds(674, 0, 238, 78);
+		labelDinero.setBounds(697, 0, 215, 78);
 		tienda.getContentPane().add(labelDinero);
 		
 		iconoMonedas = new JLabel("");
 		iconoMonedas.setIcon(new ImageIcon(getClass().getResource("/Recursos/MonedaOro.png")));
-		iconoMonedas.setBounds(924, 13, 46, 40);
+		iconoMonedas.setBounds(905, 13, 55, 48);
 		tienda.getContentPane().add(iconoMonedas);
 		
 		btnCompraArco = new JButton("");
 		btnCompraArco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(getMonedas() >= 3000 && BD.selectInventarioP2(BD.selectInventario(user.getNick()))==0){
-					monedas -= 3000;
-					invent.setP2(1);
-					BD.modificarInventario(invent);
+				if(BD.selectMonedas(user) >= 3000 ){
+					if(BD.selectInventarioP2(invent)==0) {
+						monedas -= 3000;
+						invent.setP2(1);
+						BD.modificarInventario(invent);
+					}else {
+						System.out.println("Personaje ya comprado.");
+					}
 				}else{
 					System.out.println("No hay suficientes monedas");
 				}
@@ -118,10 +123,14 @@ public class VentanaTienda extends JFrame {
 		
 		btnCompraBaston.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(getMonedas() >= 5000 && BD.selectInventarioP3(BD.selectInventario(user.getNick()))==0){
-					monedas -= 5000;
-					invent.setP3(1);
-					BD.modificarInventario(invent);
+				if(BD.selectMonedas(user) >= 5000 ){
+					if(BD.selectInventarioP2(invent)==0) {
+						monedas -= 5000;
+						invent.setP3(1);
+						BD.modificarInventario(invent);
+					}else {
+						System.out.println("Personaje ya comprado.");
+					}
 				}else{
 					System.out.println("No hay suficientes monedas");
 				}
@@ -264,8 +273,10 @@ public class VentanaTienda extends JFrame {
 		btnMonedas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//coins.play();
-				monedas=monedas +1;
-				labelDinero.setText("Monedas: "+monedas);
+				monedas += 1;
+				user.setDinero(monedas);
+				labelDinero.setText("Monedas: " + monedas);
+				BD.modificarMonedas(user);
 			}
 		});
 		

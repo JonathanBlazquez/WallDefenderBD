@@ -11,15 +11,26 @@ public class Usuario {
 	private int eleccion;
 	
 
-	public Usuario(String nombre, String apellido, int edad, String contraseña, int dinero, String nick, int eleccion) {
+	public Usuario(String nombre, String apellido, int edad, String contraseña, String nick) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
-		this.eleccion = eleccion;
 		this.contraseña = contraseña;
-		this.monedas = dinero;
+		this.monedas = 0;
 		this.nick = nick;
+		this.eleccion = 1;
+	}
+	
+	public Usuario(String nombre, String apellido, int edad, String contraseña, int monedas, String nick, int eleccion) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.edad = edad;
+		this.contraseña = contraseña;
+		this.monedas = monedas;
+		this.nick = nick;
+		this.eleccion = eleccion;
 	}
 	
 	public Usuario() {
@@ -89,6 +100,10 @@ public class Usuario {
 	
 	public int getEleccion(){
 		return eleccion;
+	}
+	
+	public String toString() {
+		return(this.getNick() + ", " + this.getNombre() + ", " + this.getApellido() + ", " + this.getContraseña());
 	}
 
 }

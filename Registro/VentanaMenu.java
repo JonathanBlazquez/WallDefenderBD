@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.awt.SystemColor;
 
 public class VentanaMenu extends JFrame {
@@ -54,8 +55,8 @@ public class VentanaMenu extends JFrame {
 	}
 
 	public VentanaMenu(Usuario u, Inventario i) {
-		this.user = u;
-		this.invent = i;
+		VentanaMenu.user = u;
+		VentanaMenu.invent = i;
 		Initialize();
 	}
 
@@ -163,7 +164,12 @@ public class VentanaMenu extends JFrame {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				VentanaPrincipal vp = new VentanaPrincipal(new Usuario(), new Inventario());
+				try {
+					VentanaPrincipal vp = new VentanaPrincipal();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				menu.setVisible(false);
 				//musicafondo.stop();
 				atras.play();

@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.awt.Window.Type;
 import javax.swing.JPasswordField;
@@ -225,7 +226,15 @@ public class VentanaRegistro extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				char[] pass = passwordField.getPassword();
 				char[] pass2 = passwordField_1.getPassword();
-
+				System.out.println(pass);
+				int cont = 0;
+				String contra = "";
+				while(cont < pass.length) {
+					contra += pass[cont];
+					cont++;
+				}
+				System.out.println(contra);
+				
 				if (textFieldNombre.getText().isEmpty() || textFieldApell.getText().isEmpty() || textFieldEdad.getText().isEmpty()
 						|| textFieldNick.getText().isEmpty() || passwordField_1.getPassword().toString().isEmpty()
 						|| passwordField.getPassword().toString().isEmpty()) {
@@ -234,13 +243,23 @@ public class VentanaRegistro extends JFrame {
 				} else {
 					if (Arrays.equals(pass, pass2)) {
 						String str = textFieldEdad.getText();
-						Usuario user = new Usuario(textFieldNombre.getText(),textFieldApell.getText(),Integer.parseInt(str),passwordField_1.getPassword().toString(),0,textFieldNick.getText(),1);
+						Usuario user = new Usuario(textFieldNombre.getText(),textFieldApell.getText(),Integer.parseInt(str),contra,textFieldNick.getText());
 						Inventario invent = new Inventario(user);
 						
-						BD.insertarUsuario(user);
-						BD.insertarInventario(invent);
+						try {
+							BD.insertarUsuario(user);
+							BD.insertarInventario(invent);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					
-						new VentanaPrincipal(user, invent);
+						try {
+							new VentanaPrincipal(user, invent);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						frmRegistroUsuario.setVisible(false);
 					} else {
 						JOptionPane.showMessageDialog(frmRegistroUsuario, "Verifica que las contraseñas son iguales");
@@ -259,7 +278,12 @@ public class VentanaRegistro extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Usuario u = new Usuario();
 				Inventario i = new Inventario();
-				new VentanaPrincipal(u, i);
+				try {
+					new VentanaPrincipal(u, i);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				frmRegistroUsuario.dispose();
 
 			}

@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -79,7 +80,7 @@ public class VentanaCharacter extends JFrame{
 		labelDinero = new JLabel("Monedas: " + user.getDinero());
 		labelDinero.setForeground(new Color(218, 165, 32));
 		labelDinero.setFont(new Font("Rockwell Extra Bold", Font.PLAIN, 20));
-		labelDinero.setBounds(773, 0, 238, 78);
+		labelDinero.setBounds(697, 8, 238, 78);
 		character.getContentPane().add(labelDinero);
 		
 		iconoMonedas = new JLabel("");
@@ -92,7 +93,7 @@ public class VentanaCharacter extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(invent.getP2() == 1){
 					user.setEleccion(2);
-					
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje Legolos elegido.");
 				}else{
 					System.out.println("Personaje bloqueado");
 				}
@@ -118,8 +119,7 @@ public class VentanaCharacter extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(invent.getP3() == 1){
 					user.setEleccion(3);
-					
-					
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje Gondolf elegido.");
 				}else{
 					System.out.println("Personaje bloqueado");
 				}
@@ -174,14 +174,14 @@ public class VentanaCharacter extends JFrame{
 		lblArco.setBorder(new LineBorder(new Color(204, 153, 51), 3, true));
 		lblArco.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArco.setForeground(Color.ORANGE);
-		lblArco.setFont(new Font("Old English Text MT", Font.PLAIN, 25));
+		lblArco.setFont(new Font("Myriad Pro Light", Font.PLAIN, 25));
 		lblArco.setBounds(43, 361, 200, 54);
 		character.getContentPane().add(lblArco);
 		
 		lblBaston.setBorder(new LineBorder(new Color(204, 153, 51), 3, true));
 		lblBaston.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBaston.setForeground(Color.ORANGE);
-		lblBaston.setFont(new Font("Old English Text MT", Font.PLAIN, 25));
+		lblBaston.setFont(new Font("Myriad Pro Light", Font.PLAIN, 25));
 		lblBaston.setBounds(697, 361, 200, 54);
 		character.getContentPane().add(lblBaston);
 		
@@ -206,7 +206,7 @@ public class VentanaCharacter extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(invent.getP1() == 1){
 					user.setEleccion(1);
-										
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje Orogorn elegido.");
 				}else{
 					System.out.println("Personaje bloqueado");
 				}

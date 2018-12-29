@@ -22,6 +22,10 @@ import java.applet.*;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.awt.Font;
 
 public class VentanaPrincipal extends JFrame {
@@ -32,16 +36,16 @@ public class VentanaPrincipal extends JFrame {
 	private JPasswordField passwordField;
 	public static Usuario user;
 	public static Inventario invent;
-	
 
 	
-	public VentanaPrincipal(Usuario u, Inventario i) {
-		this.user = u;
-		this.invent = i;
+	public VentanaPrincipal() throws SQLException {
 		initialize();
 	}
 
 	private void initialize() {
+		try {
+			BD.initBD();
+		}catch(Exception e){}
 //
 //		AudioClip musicafondo;
 //		musicafondo = java.applet.Applet.newAudioClip(getClass().getResource("/Recursos/LOTR.wav"));
@@ -107,20 +111,35 @@ public class VentanaPrincipal extends JFrame {
 			
 			public void mouseClicked(MouseEvent e) {
 				//click.play();
-				String pass = passwordField.getPassword().toString();
-				//String contra = BD.selectPass(textField.getText());
+				String pass = new String(passwordField.getPassword());
+				String contra = BD.selectPass(textField.getText());
+				String n = null;
 				if (textField.getText().isEmpty() || passwordField.getPassword().toString().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Algun campo esta sin rellenar");
 				} else {
-					//if (pass.equals(contra)) {
-						new VentanaMenu(user, invent);
-						frame.dispose();
-						//musicafondo.stop();
-
-//					} else {
-//						JOptionPane.showMessageDialog(frame, "Usuario y/o contraseña no son correctos");
-//
-//					}
+					ArrayList<String> nicks = new ArrayList<String>();
+					try {
+						nicks = BD.getNicks();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					int cont = 0;
+					while(cont < nicks.size()) {
+						if(textField.getText().equals(nicks.get(cont))) {
+							n = nicks.get(cont);
+							if (contra != null && contra.equals(pass)) {
+								user = BD.selectUsuario(n);
+								invent = BD.selectInventario(n);
+								new VentanaMenu(user, invent);
+								frame.dispose();
+								//musicafondo.stop();
+		
+							} else {
+								JOptionPane.showMessageDialog(frame, "Contraseña incorrecta");
+							}
+						}cont++;
+					}
+					if(n == null){JOptionPane.showMessageDialog(frame, "Usuario no encontrado");}
 				}
 			}
 		});
@@ -154,7 +173,7 @@ public static void main(String[] args) {
 	EventQueue.invokeLater(new Runnable() {
 		public void run() {
 			try {
-				VentanaPrincipal window = new VentanaPrincipal(user, invent);
+				VentanaPrincipal window = new VentanaPrincipal();
 				window.frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
