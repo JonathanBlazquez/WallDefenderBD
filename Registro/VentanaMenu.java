@@ -12,6 +12,7 @@ import Modelos.Ventana;
 
 import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -24,6 +25,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class VentanaMenu extends JFrame {
 	private JButton btnTienda;
@@ -82,6 +84,9 @@ public class VentanaMenu extends JFrame {
 		menu.setResizable(false);
 		menu.getContentPane().setLayout(null);
 		menu.setBounds(400, 200, 1000, 600);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		menu.setLocation(dim.width/2-menu.getSize().width/2, dim.height/2-menu.getSize().height/2);
 
 		btnJugar = new JButton("Jugar");
 		btnJugar.setForeground(new Color(255, 0, 0));

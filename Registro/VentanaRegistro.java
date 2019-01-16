@@ -15,6 +15,8 @@ import javax.swing.JDialog;
 import java.awt.Font;
 import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -73,6 +75,10 @@ public class VentanaRegistro extends JFrame {
 		frmRegistroUsuario.setResizable(false);// Para no maximizar la
 												// pantalla,siempre el mismo
 												// tamaño
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmRegistroUsuario.setLocation(dim.width/2-frmRegistroUsuario.getSize().width/2, dim.height/2-frmRegistroUsuario.getSize().height/2);
+		
 		JPanel panelNom = new JPanel();
 		panelNom.setBackground(Color.PINK);
 		frmRegistroUsuario.setVisible(true);
@@ -255,7 +261,7 @@ public class VentanaRegistro extends JFrame {
 						}
 					
 						try {
-							new VentanaPrincipal(user, invent);
+							new VentanaPrincipal();
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -276,10 +282,8 @@ public class VentanaRegistro extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Usuario u = new Usuario();
-				Inventario i = new Inventario();
 				try {
-					new VentanaPrincipal(u, i);
+					new VentanaPrincipal();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

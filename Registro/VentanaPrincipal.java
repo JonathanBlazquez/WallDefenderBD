@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -61,6 +62,9 @@ public class VentanaPrincipal extends JFrame {
 		frame.getContentPane().setLayout(new GridLayout(2, 0, 0, 0));
 		frame.setResizable(false);// Para no maximizar la pantalla,siempre el
 									// mismo tamaño
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 
 		frame.setVisible(true);
 		JPanel panel = new JPanel();

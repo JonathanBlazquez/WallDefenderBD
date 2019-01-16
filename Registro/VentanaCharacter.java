@@ -2,10 +2,12 @@ package Registro;
 
 import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -83,6 +85,9 @@ public class VentanaCharacter extends JFrame{
 		labelDinero.setBounds(697, 8, 238, 78);
 		character.getContentPane().add(labelDinero);
 		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		character.setLocation(dim.width/2-character.getSize().width/2, dim.height/2-character.getSize().height/2);
+		
 		iconoMonedas = new JLabel("");
 		iconoMonedas.setIcon(new ImageIcon(getClass().getResource("/Recursos/MonedaOro.png")));
 		iconoMonedas.setBounds(926, 22, 46, 40);
@@ -91,11 +96,14 @@ public class VentanaCharacter extends JFrame{
 		btnArco = new JButton("");
 		btnArco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(invent.getP2() == 1){
+				
+				if(user.getEleccion() == 2){
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje actual.");
+				}if(invent.getP2() == 1){
 					user.setEleccion(2);
 					JOptionPane.showMessageDialog(getContentPane(), "Personaje Legolos elegido.");
-				}else{
-					System.out.println("Personaje bloqueado");
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje bloqueado.");
 				}
 			}
 		});
@@ -117,11 +125,13 @@ public class VentanaCharacter extends JFrame{
 		
 		btnBaston.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(invent.getP3() == 1){
+				if(user.getEleccion() == 3){
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje actual.");
+				}else if(invent.getP3() == 1){
 					user.setEleccion(3);
 					JOptionPane.showMessageDialog(getContentPane(), "Personaje Gondolf elegido.");
 				}else{
-					System.out.println("Personaje bloqueado");
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje bloqueado.");
 				}
 			}
 		});
@@ -204,11 +214,13 @@ public class VentanaCharacter extends JFrame{
 		JButton btnOrogorn = new JButton("");
 		btnOrogorn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(invent.getP1() == 1){
+				if(user.getEleccion() == 1){
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje actual.");
+				}else if(invent.getP1() == 1){
 					user.setEleccion(1);
 					JOptionPane.showMessageDialog(getContentPane(), "Personaje Orogorn elegido.");
-				}else{
-					System.out.println("Personaje bloqueado");
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(), "Personaje bloqueado.");
 				}
 			}
 		});

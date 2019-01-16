@@ -81,6 +81,9 @@ public class VentanaTienda extends JFrame {
 		labelDinero.setBounds(697, 0, 215, 78);
 		tienda.getContentPane().add(labelDinero);
 		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		tienda.setLocation(dim.width/2-tienda.getSize().width/2, dim.height/2-tienda.getSize().height/2);
+		
 		iconoMonedas = new JLabel("");
 		iconoMonedas.setIcon(new ImageIcon(getClass().getResource("/Recursos/MonedaOro.png")));
 		iconoMonedas.setBounds(905, 13, 55, 48);
